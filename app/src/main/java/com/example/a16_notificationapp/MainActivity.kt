@@ -160,6 +160,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun notificationBuilder(notificationType : Int, bitmap : Bitmap?): Notification
     {
+        val tiltedTestTube_bitmap =  (ResourcesCompat.getDrawable(resources, R.drawable.img_tilted_test_tube, null) as BitmapDrawable)?.bitmap
+
         return when(notificationType){
 
             BASIC_NOTIFICATION -> {
@@ -195,15 +197,15 @@ class MainActivity : AppCompatActivity() {
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("This is notification..")
                     .setContentText("with intent to move to second activity")
-                    .setContentIntent(pendingIntent)
+                    .setContentIntent(pendingIntent)                        // This line is attaching the "pendingIntent" to notification
                     .setAutoCancel(true)        // Dismiss notification on click (so notification is removed after it has been selected)
                     .build()
             }
 
             NOTIFICATION_WITH_BIG_PICTURE_STYLE -> {
                 val bigPictureStyle = Notification.BigPictureStyle()
-                    .bigPicture(bitmap)
-                    .bigLargeIcon(bitmap)
+                    .bigPicture(bitmap)                     // This is the actual "big picture which will be displayed as a large picture"
+                    .bigLargeIcon(tiltedTestTube_bitmap)                    // This is basically "setLargeIcon" for bigPicture mode, it will replace the "setLargeIcon" when we enter the big picture mode
                     .setBigContentTitle("Image sent by Raman")                      // When u expand the img to see the "big picture"
                     .setSummaryText("This msg will be visible on expanding img")    // these two text msgs will be visible instead of
                                                                                     // "setContentTitle" and "setContentText"
